@@ -1,0 +1,107 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: agentruns.sentinelmesh.io
+spec:
+  group: sentinelmesh.io
+  names:
+    kind: AgentRun
+    listKind: AgentRunList
+    plural: agentruns
+    singular: agentrun
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      subresources:
+        status: {}
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required: ["runID", "agentID", "nodeID", "image", "resources"]
+              properties:
+                runID:
+                  type: string
+                  description: "SentinelMesh run identifier. Immutable."
+                agentID:
+                  type: string
+                  description: "SentinelMesh agent identifier."
+                clusterID:
+                  type: string
+                  description: "Target cluster identifier."
+                nodeID:
+                  type: string
+                  description: "Scheduler-selected node name. Pod is pinned here via spec.nodeName."
+                image:
+                  type: string
+                  description: "Container image for the agent workload."
+                resources:
+                  type: object
+                  required: ["cpu", "memory"]
+                  properties:
+                    cpu:
+                      type: string
+                      description: "CPU request/limit (e.g. '500m', '2')."
+                    memory:
+                      type: string
+                      description: "Memory request/limit (e.g. '256Mi', '4Gi')."
+                securityClass:
+                  type: string
+                  description: "Optional security class label for policy enforcement."
+            status:
+              type: object
+              properties:
+                phase:
+                  type: string
+                  description: "Lifecycle phase: Pending, Creating, Running, Failed, Succeeded, Unknown."
+                  enum: ["Pending", "Creating", "Running", "Failed", "Succeeded", "Unknown"]
+                podName:
+                  type: string
+                  description: "Name of the Pod created for this AgentRun."
+                nodeName:
+                  type: string
+                  description: "Kubernetes node the Pod was bound to."
+                startTime:
+                  type: string
+                  format: date-time
+                  description: "Time the Pod transitioned to Running."
+                message:
+                  type: string
+                  description: "Human-readable status message."
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    required: ["type", "status", "lastTransitionTime", "reason", "message"]
+                    properties:
+                      type:
+                        type: string
+                      status:
+                        type: string
+                      lastTransitionTime:
+                        type: string
+                        format: date-time
+                      reason:
+                        type: string
+                      message:
+                        type: string
+                      observedGeneration:
+                        type: integer
+                        format: int64
+      additionalPrinterColumns:
+        - name: Node
+          type: string
+          jsonPath: .spec.nodeID
+        - name: Phase
+          type: string
+          jsonPath: .status.phase
+        - name: Pod
+          type: string
+          jsonPath: .status.podName
+        - name: Age
+          type: date
+          jsonPath: .metadata.creationTimestamp

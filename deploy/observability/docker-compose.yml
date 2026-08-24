@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # OpenTelemetry Collector: receives OTLP traces and metrics, exports traces to Tempo and metrics to Prometheus
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.100.0
+    container_name: sentinelmesh-otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+      - "8889:8889"   # Prometheus metrics exporter
+      - "13133:13133" # Health check
+    depends_on:
+      - tempo
+    networks:
+      - sentinelmesh-net
+
+  # Grafana Tempo: high-scale distributed tracing backend
+  tempo:
+    image: grafana/tempo:2.4.1
+    container_name: sentinelmesh-tempo
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml:ro
+      - tempo-data:/var/tempo
+    ports:
+      - "3200:3200"   # Tempo HTTP / query API
+      - "9095:9095"   # Tempo gRPC
+    networks:
+      - sentinelmesh-net
+
+  # Prometheus: metrics storage and querying
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    container_name: sentinelmesh-prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yaml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.enable-lifecycle"
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - sentinelmesh-net
+
+  # Grafana: unified dashboards for metrics and distributed traces
+  grafana:
+    image: grafana/grafana:11.0.0
+    container_name: sentinelmesh-grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=sentinelmesh
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_FEATURE_TOGGLES_ENABLE=traceToLogs,tempoSearch,tempoServiceGraph
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+      - tempo
+    networks:
+      - sentinelmesh-net
+
+networks:
+  sentinelmesh-net:
+    driver: bridge
+
+volumes:
+  tempo-data:
+  prometheus-data:
+  grafana-data:

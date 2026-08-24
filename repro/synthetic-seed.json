@@ -1,0 +1,17 @@
+{
+  "trace_seed": 42,
+  "description": "Standard deterministic pseudo-random seed used for the 1,000-task multi-stage comparison trace.",
+  "complexity_distribution": {
+    "simple": 0.50,
+    "moderate": 0.30,
+    "complex": 0.15,
+    "reasoning_heavy": 0.05
+  },
+  "fault_injection_schedule": {
+    "drift_start_task_idx": 300,
+    "drift_end_task_idx": 700,
+    "target_model": "medium-balanced-v1",
+    "degraded_quality": 0.55,
+    "degraded_latency_multiplier": 2.5
+  }
+}

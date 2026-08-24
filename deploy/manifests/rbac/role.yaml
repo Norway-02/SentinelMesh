@@ -1,0 +1,33 @@
+# Namespaced Role: grants the operator least-privilege access within the
+# sentinelmesh namespace. Secrets and ConfigMaps are intentionally excluded
+# until a concrete Stage 8 requirement introduces them.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: sentinelmesh-operator
+  namespace: sentinelmesh
+  labels:
+    app.kubernetes.io/name: sentinelmesh-operator
+    app.kubernetes.io/component: operator
+rules:
+  # Full lifecycle management of AgentRun CRs and their status subresource.
+  - apiGroups: ["sentinelmesh.io"]
+    resources: ["agentruns"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["sentinelmesh.io"]
+    resources: ["agentruns/status"]
+    verbs: ["get", "update", "patch"]
+  - apiGroups: ["sentinelmesh.io"]
+    resources: ["agentruns/finalizers"]
+    verbs: ["update"]
+  # Pod management: operator creates and monitors Pods for each AgentRun.
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["pods/status"]
+    verbs: ["get"]
+  # Event recording for controller-runtime's event recorder.
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["create", "patch"]

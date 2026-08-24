@@ -1,0 +1,33 @@
+# SentinelMesh Live Provider Configuration Example
+# Set mode to LIVE, SYNTHETIC, or DRY_RUN
+mode: LIVE
+payload_logging: false
+
+endpoints:
+  small-fast-v1:
+    type: openai
+    base_url: https://api.openai.com
+    api_key: ${OPENAI_API_KEY}
+    model_target: gpt-4o-mini
+    timeout: 10s
+
+  medium-balanced-v1:
+    type: anthropic
+    base_url: https://api.anthropic.com
+    api_key: ${ANTHROPIC_API_KEY}
+    model_target: claude-3-5-sonnet-20241022
+    timeout: 20s
+
+  large-reasoning-v1:
+    type: gemini
+    base_url: https://generativelanguage.googleapis.com
+    api_key: ${GEMINI_API_KEY}
+    model_target: gemini-1.5-pro
+    timeout: 30s
+
+  local-ollama-v1:
+    type: ollama
+    base_url: http://localhost:11434
+    api_key: ""
+    model_target: llama3:8b
+    timeout: 15s

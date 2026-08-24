@@ -1,0 +1,34 @@
+# RoleBinding: grants the operator ServiceAccount the namespaced Role.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sentinelmesh-operator
+  namespace: sentinelmesh
+  labels:
+    app.kubernetes.io/name: sentinelmesh-operator
+    app.kubernetes.io/component: operator
+subjects:
+  - kind: ServiceAccount
+    name: sentinelmesh-operator
+    namespace: sentinelmesh
+roleRef:
+  kind: Role
+  name: sentinelmesh-operator
+  apiGroup: rbac.authorization.k8s.io
+---
+# ClusterRoleBinding: grants the operator ServiceAccount read-only node access.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sentinelmesh-operator-node-reader
+  labels:
+    app.kubernetes.io/name: sentinelmesh-operator
+    app.kubernetes.io/component: operator
+subjects:
+  - kind: ServiceAccount
+    name: sentinelmesh-operator
+    namespace: sentinelmesh
+roleRef:
+  kind: ClusterRole
+  name: sentinelmesh-operator-node-reader
+  apiGroup: rbac.authorization.k8s.io

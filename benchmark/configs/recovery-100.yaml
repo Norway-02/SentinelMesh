@@ -1,0 +1,23 @@
+# SentinelMesh Benchmark Manifest: Self-Healing Recovery Scalability
+name: recovery-concurrency-100
+description: "Cross-cluster self-healing recovery benchmarks under concurrent node failures and run bursts"
+seed: 42
+warmup_iterations: 3
+benchmark_iterations: 15
+failure_concurrency:
+  - 1
+  - 10
+  - 50
+  - 100
+affected_run_bursts:
+  - 1
+  - 10
+  - 100
+  - 1000
+phases_measured:
+  - detection
+  - queueing
+  - scheduler_reschedule
+  - checkpoint_restore
+  - replacement_activation
+  - total_recovery

@@ -1,0 +1,42 @@
+{
+  "manifest_version": "v1.0.0",
+  "project": "SentinelMesh",
+  "schema_version": "2026.08",
+  "benchmarks": {
+    "stage16_scheduler_micro": {
+      "target": "benchmark/scheduler",
+      "command": "go test -run=^$ -bench=BenchmarkScheduleTask -benchmem ./benchmark/scheduler/...",
+      "expected_p50_latency_ns": 40000,
+      "expected_allocs_per_op": 3
+    },
+    "stage16_scheduler_1m_nodes": {
+      "target": "benchmark/scheduler",
+      "command": "go test -v -run=TestScheduler_1MillionNodes_Benchmark ./benchmark/scheduler/...",
+      "expected_p50_latency_ms": 87.7
+    },
+    "stage17_router_micro": {
+      "target": "benchmark/router",
+      "command": "go test -run=^$ -bench=BenchmarkRouter_RouteTask -benchmem ./benchmark/router/...",
+      "expected_p50_latency_ns": 1900,
+      "expected_allocs_per_op": 12
+    },
+    "stage18_adaptive_micro": {
+      "target": "benchmark/adaptive",
+      "command": "go test -run=^$ -bench=BenchmarkAdaptiveRouter_DecisionEngine -benchmem ./benchmark/adaptive/...",
+      "expected_p50_latency_ns": 3230,
+      "expected_allocs_per_op": 19
+    },
+    "stage19_online_policy_micro": {
+      "target": "benchmark/onlinepolicy",
+      "command": "go test -run=^$ -bench=BenchmarkOnlinePolicy_DecisionEngine -benchmem ./benchmark/onlinepolicy/...",
+      "expected_p50_latency_ns": 5690,
+      "expected_allocs_per_op": 38
+    },
+    "stage19_1000_task_trace_comparison": {
+      "target": "benchmark/onlinepolicy",
+      "command": "go test -v -run=TestOnlinePolicy_TraceMatchedComparisonExperiment_1000Tasks ./benchmark/onlinepolicy/...",
+      "trace_task_count": 1000,
+      "random_seed": 42
+    }
+  }
+}

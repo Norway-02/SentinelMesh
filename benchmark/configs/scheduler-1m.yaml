@@ -1,0 +1,21 @@
+# SentinelMesh Benchmark Manifest: Scheduler Scalability
+name: scheduler-scalability-1m
+description: "Synthetic in-memory scheduler scalability benchmark from 100 to 1,000,000 nodes"
+seed: 42
+warmup_iterations: 5
+benchmark_iterations: 20
+node_scales:
+  - 100
+  - 1000
+  - 10000
+  - 100000
+  - 1000000
+algorithms:
+  - first-fit
+  - deterministic-v1
+  - two-tier-multicluster
+clusters: 100
+nodes_per_cluster: 10000
+req_cpu: "2"
+req_memory: "4Gi"
+req_security: "standard"

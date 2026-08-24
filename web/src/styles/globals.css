@@ -1,0 +1,145 @@
+:root {
+  --bg-primary: #08090C;
+  --bg-secondary: #0D0F13;
+  --bg-elevated: #12151A;
+  --bg-panel: #101319;
+  --bg-hover: #171B22;
+
+  --bg-dark: #08090C;
+  --bg-surface: #0D0F13;
+  --bg-surface-hover: #171B22;
+  --bg-card: #101319;
+  --bg-card-hover: #171B22;
+  --bg-input: #08090C;
+
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-color-light: rgba(255, 255, 255, 0.10);
+  --border-color-active: rgba(110, 168, 254, 0.35);
+
+  --text-primary: #F5F7FA;
+  --text-secondary: #A6ADB8;
+  --text-muted: #6B7280;
+  --text-dim: #4B5563;
+  --text-high-contrast: #DCE1E8;
+
+  --accent-blue: #6EA8FE;
+  --accent-blue-hover: #5292f7;
+  --accent-cyan: #55D6E8;
+  --accent-purple: #A78BFA;
+  --accent-emerald: #3DDC97;
+  --accent-amber: #F3B544;
+  --accent-rose: #FF5C6C;
+
+  --badge-green-bg: rgba(61, 220, 151, 0.10);
+  --badge-green-text: #3DDC97;
+  --badge-green-border: rgba(61, 220, 151, 0.25);
+
+  --badge-yellow-bg: rgba(243, 181, 68, 0.10);
+  --badge-yellow-text: #F3B544;
+  --badge-yellow-border: rgba(243, 181, 68, 0.25);
+
+  --badge-red-bg: rgba(255, 92, 108, 0.10);
+  --badge-red-text: #FF5C6C;
+  --badge-red-border: rgba(255, 92, 108, 0.25);
+
+  --badge-blue-bg: rgba(110, 168, 254, 0.10);
+  --badge-blue-text: #6EA8FE;
+  --badge-blue-border: rgba(110, 168, 254, 0.25);
+
+  --badge-purple-bg: rgba(167, 139, 250, 0.10);
+  --badge-purple-text: #A78BFA;
+  --badge-purple-border: rgba(167, 139, 250, 0.25);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-modal: 16px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.4);
+  --shadow-glow-blue: 0 0 20px rgba(110, 168, 254, 0.15);
+  --shadow-glow-emerald: 0 0 20px rgba(61, 220, 151, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* Utility Animations */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.03); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Recharts Customization */
+.recharts-cartesian-grid-line {
+  stroke: rgba(255, 255, 255, 0.05) !important;
+  stroke-dasharray: 3 3;
+}
+.recharts-text {
+  fill: var(--text-muted) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+}
+.recharts-default-tooltip {
+  background-color: var(--bg-elevated) !important;
+  border: 1px solid var(--border-color-light) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-md) !important;
+}

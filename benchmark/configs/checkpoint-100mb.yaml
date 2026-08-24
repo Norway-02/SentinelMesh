@@ -1,0 +1,20 @@
+# SentinelMesh Benchmark Manifest: Checkpoint Multi-Tier Scaling
+name: checkpoint-scale-100mb
+description: "Multi-tier state snapshotting and restore performance from 1 KB to 100 MB"
+seed: 42
+warmup_iterations: 3
+benchmark_iterations: 15
+payload_sizes_bytes:
+  - 1024       # 1 KB (Inline)
+  - 10240      # 10 KB (Inline)
+  - 102400     # 100 KB (Inline)
+  - 1048576    # 1 MB (URI / Object Store)
+  - 10485760   # 10 MB (URI / Object Store)
+  - 52428800   # 50 MB (URI / Object Store)
+  - 104857600  # 100 MB (URI / Object Store)
+tiers:
+  - sha256_only
+  - canonical_json_and_sha256
+  - inline_write
+  - uri_object_store_write
+  - restore_read

@@ -1,0 +1,187 @@
+syntax = "proto3";
+
+package sentinelmesh.v1;
+
+option go_package = "github.com/sentinelmesh/sentinelmesh/api/v1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message Resources {
+  string cpu = 1;
+  string memory = 2;
+  int32 gpu = 3;
+}
+
+message CheckpointPolicy {
+  bool enabled = 1;
+  string interval = 2;
+}
+
+message SecurityPolicy {
+  string profile = 1;
+}
+
+message NetworkPolicy {
+  string mode = 1;
+}
+
+message VerificationPolicy {
+  bool enabled = 1;
+}
+
+message Agent {
+  string id = 1;
+  string name = 2;
+  string tenant = 3;
+  string version = 4;
+  string image = 5;
+  Resources resources = 6;
+  string priority = 7;
+  SecurityPolicy security_policy = 8;
+  NetworkPolicy network_policy = 9;
+  CheckpointPolicy checkpoint_policy = 10;
+  VerificationPolicy verification_policy = 11;
+  string status = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+}
+
+message AgentRun {
+  string id = 1;
+  string agent_id = 2;
+  string state = 3;
+  string node = 4;
+  string cluster = 5;
+  google.protobuf.Timestamp started_at = 6;
+  google.protobuf.Timestamp finished_at = 7;
+  string last_checkpoint = 8;
+  int32 retry_count = 9;
+  string resource_usage = 10;
+  double cost_estimate = 11;
+  string verification_state = 12;
+  string failure_reason = 13;
+}
+
+message Checkpoint {
+  string id = 1;
+  string run_id = 2;
+  int32 version = 3;
+  string state = 4;
+  string artifact_uri = 5;
+  google.protobuf.Timestamp created_at = 6;
+  string checksum = 7;
+}
+
+message Policy {
+  string id = 1;
+  string tenant = 2;
+  repeated string filesystem_rules = 3;
+  repeated string network_rules = 4;
+  repeated string tool_rules = 5;
+  repeated string resource_rules = 6;
+  repeated string secret_rules = 7;
+  repeated string approval_rules = 8;
+}
+
+message VerificationResult {
+  string run_id = 1;
+  repeated string checks = 2;
+  bool passed = 3;
+  repeated string failed = 4;
+  string evidence = 5;
+  google.protobuf.Timestamp timestamp = 6;
+}
+
+// -----------------------------------------------------
+// Service Requests & Responses
+// -----------------------------------------------------
+
+message CreateAgentRequest {
+  string name = 1;
+  string tenant_id = 2;
+  string version = 3;
+  string image = 4;
+  Resources resources = 5;
+  string priority = 6;
+}
+
+message CreateAgentResponse {
+  Agent agent = 1;
+}
+
+message GetAgentRequest {
+  string id = 1;
+}
+
+message GetAgentResponse {
+  Agent agent = 1;
+}
+
+message ListAgentsRequest {
+  string tenant_id = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListAgentsResponse {
+  repeated Agent agents = 1;
+  string next_page_token = 2;
+}
+
+message DeleteAgentRequest {
+  string id = 1;
+}
+
+message DeleteAgentResponse {
+}
+
+message CreateRunRequest {
+  string agent_id = 1;
+}
+
+message CreateRunResponse {
+  AgentRun run = 1;
+}
+
+message GetRunRequest {
+  string id = 1;
+}
+
+message GetRunResponse {
+  AgentRun run = 1;
+}
+
+message CancelRunRequest {
+  string id = 1;
+}
+
+message CancelRunResponse {
+  AgentRun run = 1;
+}
+
+message GetRunStateRequest {
+  string id = 1;
+}
+
+message GetRunStateResponse {
+  string state = 1;
+}
+
+// -----------------------------------------------------
+// Services
+// -----------------------------------------------------
+
+service AgentService {
+  rpc CreateAgent(CreateAgentRequest) returns (CreateAgentResponse);
+  rpc GetAgent(GetAgentRequest) returns (GetAgentResponse);
+  rpc ListAgents(ListAgentsRequest) returns (ListAgentsResponse);
+  rpc DeleteAgent(DeleteAgentRequest) returns (DeleteAgentResponse);
+}
+
+service RunService {
+  rpc CreateRun(CreateRunRequest) returns (CreateRunResponse);
+  rpc GetRun(GetRunRequest) returns (GetRunResponse);
+  rpc CancelRun(CancelRunRequest) returns (CancelRunResponse);
+  rpc GetRunState(GetRunStateRequest) returns (GetRunStateResponse);
+}

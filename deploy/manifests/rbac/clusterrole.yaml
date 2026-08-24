@@ -1,0 +1,15 @@
+# ClusterRole: read-only access to cluster-scoped Node resources.
+# Nodes are cluster-scoped; the operator needs them for the
+# KubernetesResourceProvider (feeding the scheduler with real node state).
+# No write access to nodes is granted.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sentinelmesh-operator-node-reader
+  labels:
+    app.kubernetes.io/name: sentinelmesh-operator
+    app.kubernetes.io/component: operator
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
