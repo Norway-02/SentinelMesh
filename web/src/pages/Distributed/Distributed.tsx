@@ -8,7 +8,7 @@ export const Distributed: React.FC = () => {
       name: 'Cluster Alpha (us-east-1)',
       status: 'healthy',
       agents: [
-        { id: 'agent-node-01', role: 'Scheduler Leader', state: 'RUNNING', fencingToken: '42', checkpoint: 'chk-100', attestation: 'VALID' },
+        { id: 'agent-node-01', role: 'Scheduler Execution Authority', state: 'RUNNING', fencingToken: '42', checkpoint: 'chk-100', attestation: 'VALID' },
         { id: 'agent-node-02', role: 'Worker Node', state: 'RUNNING', fencingToken: '42', checkpoint: 'chk-099', attestation: 'VALID' },
         { id: 'agent-node-03', role: 'Verifier Node', state: 'VERIFYING', fencingToken: '42', checkpoint: 'chk-100', attestation: 'VALID' },
       ],
@@ -28,10 +28,10 @@ export const Distributed: React.FC = () => {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <h1 style={{ fontSize: '20px', fontWeight: 700, letterSpacing: '-0.01em', color: 'var(--text-primary)' }}>
-            Distributed Control Plane &amp; Consensus
+            Distributed Control Plane &amp; Execution Authority
           </h1>
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-            Multi-cluster topology, fencing generation tokens, state checkpoints, and zero-trust attestation.
+            Multi-cluster topology, fencing generation tokens, state checkpoints, and zero-trust evidence attestation.
           </p>
         </div>
         <StatusBadge status="synthetic" label="DATA SOURCE: SIMULATED TOPOLOGY" />
@@ -89,7 +89,7 @@ export const Distributed: React.FC = () => {
             chk-100 (Seq #100)
           </div>
           <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>
-            SHA-256: 8f3a...b49e (Merkle Root Verified)
+            SHA-256: 8f3a...b49e (State Digest Verified)
           </div>
         </div>
 
@@ -102,10 +102,10 @@ export const Distributed: React.FC = () => {
             <ShieldCheck size={16} style={{ color: 'var(--accent-emerald)' }} />
           </div>
           <div style={{ fontSize: '20px', fontWeight: 700, color: 'var(--accent-emerald)', fontFamily: 'var(--font-mono)', marginTop: '6px' }}>
-            100% PASSED (Signature Valid)
+            100% VERIFIED (SHA-256 Digest Valid)
           </div>
           <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>
-            Zero-trust state cryptographic proof
+            Zero-trust evidence hash attestation
           </div>
         </div>
       </div>

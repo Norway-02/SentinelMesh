@@ -94,10 +94,10 @@ export const Providers: React.FC = () => {
                     <Server size={18} style={{ color: 'var(--accent-blue)' }} />
                     <div>
                       <h3 style={{ fontSize: '15px', fontWeight: 700, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
-                        {providerName}
+                        {providerName} {isSyntheticProvider ? '— SIMULATED' : '— LIVE'}
                       </h3>
                       <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                        {providerModels.length} Registered Model{providerModels.length > 1 ? 's' : ''}
+                        {providerModels.length} Registered Model{providerModels.length > 1 ? 's' : ''} ({isSyntheticProvider ? 'SyntheticModelProvider' : 'Live OpenAI Adapter'})
                       </div>
                     </div>
                   </div>

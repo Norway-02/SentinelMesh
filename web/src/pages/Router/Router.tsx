@@ -233,7 +233,7 @@ export const Router: React.FC = () => {
             <ShieldCheck size={18} style={{ color: 'var(--accent-blue)' }} />
             <div>
               <h3 style={{ fontSize: '14px', fontWeight: 700 }}>Stage 17: Safety Filter</h3>
-              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Hard Constraints &amp; Rejection Audit</div>
+              <div style={{ fontSize: '11px', color: 'var(--accent-emerald)', fontWeight: 600 }}>Deterministic Gate · Verified</div>
             </div>
           </div>
 
@@ -308,7 +308,7 @@ export const Router: React.FC = () => {
             <BrainCircuit size={18} style={{ color: 'var(--accent-cyan)' }} />
             <div>
               <h3 style={{ fontSize: '14px', fontWeight: 700 }}>Stage 18: Adaptive Predictor</h3>
-              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Empirical Bayes &amp; Latency Regression</div>
+              <div style={{ fontSize: '11px', color: 'var(--accent-amber)', fontWeight: 600 }}>Experimental / Simulated Layer</div>
             </div>
           </div>
 
@@ -354,7 +354,7 @@ export const Router: React.FC = () => {
             <Target size={18} style={{ color: 'var(--accent-purple)' }} />
             <div>
               <h3 style={{ fontSize: '14px', fontWeight: 700 }}>Stage 19: Online Policy</h3>
-              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Upper Confidence Bound (UCB) Arm Selection</div>
+              <div style={{ fontSize: '11px', color: 'var(--accent-amber)', fontWeight: 600 }}>Experimental / Simulated Policy</div>
             </div>
           </div>
 

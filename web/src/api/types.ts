@@ -192,6 +192,7 @@ export interface SSEEvent {
   stage?: string;
   task_id?: string;
   run_id?: string;
+  trace_id?: string;
   agent_id?: string;
   tenant_id?: string;
   status?: string;

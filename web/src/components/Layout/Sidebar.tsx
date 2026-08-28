@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard,
   Terminal,
+  PlayCircle,
   GitBranch,
   Server,
   BrainCircuit,
@@ -20,6 +21,7 @@ export const Sidebar: React.FC = () => {
       items: [
         { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
         { path: '/tasks', label: 'Tasks', icon: Terminal },
+        { path: '/runs', label: 'Runs', icon: PlayCircle },
       ],
     },
     {
@@ -168,7 +170,7 @@ export const Sidebar: React.FC = () => {
         }}
       >
         <div>API: 127.0.0.1:8787</div>
-        <div>ENGINE: STAGE 17-19</div>
+        <div>ENGINE: STAGE 17 - MODEL ROUTER</div>
       </div>
     </aside>
   );

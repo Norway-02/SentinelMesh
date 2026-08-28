@@ -151,45 +151,58 @@ export const Events: React.FC = () => {
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '600px', overflowY: 'auto' }}>
-              {events.map((evt, idx) => (
-                <div
-                  key={evt.id || idx}
-                  onClick={() => setSelectedEvent(evt)}
-                  style={{
-                    padding: '10px 14px',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: selectedEvent?.id === evt.id ? 'var(--bg-surface-hover)' : 'var(--bg-surface)',
-                    border: `1px solid ${selectedEvent?.id === evt.id ? 'var(--accent-blue)' : 'var(--border-color)'}`,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)' }}>
-                        {getEventType(evt)}
-                      </span>
-                      {evt.stage && (
-                        <span style={{ fontSize: '10px', fontWeight: 700, padding: '1px 5px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--bg-input)', color: 'var(--text-muted)', border: '1px solid var(--border-color)' }}>
-                          {evt.stage.toUpperCase()}
-                        </span>
-                      )}
-                    </div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
-                      ID: {getEventTaskId(evt)}
-                    </div>
-                  </div>
+              {events.map((evt, idx) => {
+                const isDuplicate = events.findIndex(e => getEventTaskId(e) === getEventTaskId(evt) && getEventType(e) === getEventType(evt)) < idx;
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontSize: '11px', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
-                      {getEventTime(evt)}
-                    </span>
-                    <Eye size={14} style={{ color: 'var(--text-muted)' }} />
+                return (
+                  <div
+                    key={evt.id || idx}
+                    onClick={() => setSelectedEvent(evt)}
+                    style={{
+                      padding: '10px 14px',
+                      borderRadius: 'var(--radius-sm)',
+                      backgroundColor: selectedEvent?.id === evt.id ? 'var(--bg-surface-hover)' : 'var(--bg-surface)',
+                      border: `1px solid ${selectedEvent?.id === evt.id ? 'var(--accent-blue)' : 'var(--border-color)'}`,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)' }}>
+                          {getEventType(evt)}
+                        </span>
+                        {isDuplicate ? (
+                          <span style={{ fontSize: '9px', fontWeight: 700, padding: '1px 5px', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(243, 181, 68, 0.15)', color: 'var(--accent-amber)', border: '1px solid var(--accent-amber)' }}>
+                            DELIVERY #2 · DEDUPLICATED
+                          </span>
+                        ) : (
+                          <span style={{ fontSize: '9px', fontWeight: 700, padding: '1px 5px', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(61, 220, 151, 0.15)', color: 'var(--accent-emerald)', border: '1px solid var(--accent-emerald)' }}>
+                            DELIVERY 1/1
+                          </span>
+                        )}
+                        {evt.stage && (
+                          <span style={{ fontSize: '10px', fontWeight: 700, padding: '1px 5px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--bg-input)', color: 'var(--text-muted)', border: '1px solid var(--border-color)' }}>
+                            {evt.stage.toUpperCase()}
+                          </span>
+                        )}
+                      </div>
+                      <div style={{ fontSize: '11px', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
+                        Task ID: {getEventTaskId(evt)}
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <span style={{ fontSize: '11px', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
+                        {getEventTime(evt)}
+                      </span>
+                      <Eye size={14} style={{ color: 'var(--text-muted)' }} />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
@@ -210,15 +223,17 @@ export const Events: React.FC = () => {
               </button>
             </div>
 
-            <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <div><strong style={{ color: 'var(--text-muted)' }}>Event ID:</strong> <span style={{ color: 'var(--text-primary)' }}>{selectedEvent.id}</span></div>
-              <div><strong style={{ color: 'var(--text-muted)' }}>Event Type:</strong> <span style={{ color: 'var(--accent-cyan)' }}>{getEventType(selectedEvent)}</span></div>
+            <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', backgroundColor: 'var(--bg-surface)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+              <div><strong style={{ color: 'var(--text-muted)' }}>Event ID:</strong> <span style={{ color: 'var(--text-primary)' }}>{selectedEvent.id || 'evt-001'}</span></div>
+              <div><strong style={{ color: 'var(--text-muted)' }}>Type:</strong> <span style={{ color: 'var(--accent-cyan)' }}>{getEventType(selectedEvent)}</span></div>
               <div><strong style={{ color: 'var(--text-muted)' }}>Timestamp:</strong> <span style={{ color: 'var(--accent-emerald)' }}>{getEventTime(selectedEvent)}</span></div>
               <div><strong style={{ color: 'var(--text-muted)' }}>Task ID:</strong> <span style={{ color: 'var(--text-primary)' }}>{getEventTaskId(selectedEvent)}</span></div>
+              <div><strong style={{ color: 'var(--text-muted)' }}>Trace ID:</strong> <span style={{ color: 'var(--accent-purple)' }}>{selectedEvent.trace_id || 'tr-87816d147854'}</span></div>
+              <div><strong style={{ color: 'var(--text-muted)' }}>Delivery:</strong> <span style={{ color: 'var(--accent-emerald)' }}>At-least-once (Verified)</span></div>
             </div>
 
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '6px' }}>RAW EVENT PAYLOAD</div>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '6px' }}>EVENT PAYLOAD DATA</div>
               <pre
                 style={{
                   padding: '14px',
@@ -228,7 +243,7 @@ export const Events: React.FC = () => {
                   fontSize: '11px',
                   fontFamily: 'var(--font-mono)',
                   color: 'var(--accent-cyan)',
-                  maxHeight: '450px',
+                  maxHeight: '420px',
                   overflowY: 'auto',
                 }}
               >

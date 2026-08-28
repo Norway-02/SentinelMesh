@@ -84,15 +84,23 @@ export function formatPercent(value?: number | null, decimals = 1): string {
 }
 
 /**
- * Formats latency in milliseconds (e.g. 421.34 -> "421ms")
+ * Formats latency in milliseconds or seconds (e.g. 421.34 -> "421ms", 92241.6 -> "92.24s")
+ * Prevents unformatted float artifacts.
  */
 export function formatLatency(ms?: number | null): string {
   if (ms === undefined || ms === null || isNaN(ms)) {
     return '0ms';
   }
+  // Convert nanoseconds to milliseconds if needed
   const val = ms > 100000 ? ms / 1000000 : ms;
+  if (val >= 10000) {
+    return `${(val / 1000).toFixed(2)}s`;
+  }
+  if (val >= 1000) {
+    return `${Math.round(val).toLocaleString()}ms`;
+  }
   if (val < 1 && val > 0) {
-    return `${val.toFixed(2)}ms`;
+    return `${val.toFixed(1)}ms`;
   }
   return `${Math.round(val)}ms`;
 }

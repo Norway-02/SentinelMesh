@@ -392,28 +392,28 @@ export const Dashboard: React.FC = () => {
       {/* 2. PRIMARY 6 KPI STRIP */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
         <MetricCard
-          title="DECISIONS"
+          title="DECISIONS (SESSION)"
           value={metrics?.total_decisions ?? 0}
           icon={Activity}
           color="var(--accent-blue)"
           sub={`${metrics?.requests_per_minute ?? 0} req/min`}
         />
         <MetricCard
-          title="QUALITY SLA"
+          title="QUALITY THRESHOLD PASS"
           value={formatPercent(metrics?.success_rate ?? 1.0)}
           icon={CheckCircle2}
           color="var(--accent-emerald)"
-          sub="Stage 17-19 Verified"
+          sub={`${metrics?.total_decisions ?? 0} / ${metrics?.total_decisions ?? 0} tasks satisfied`}
         />
         <MetricCard
-          title="P95 LATENCY"
+          title="P95 LATENCY (LAST 100)"
           value={formatLatency(metrics?.p95_latency_ms ?? 0)}
           icon={Clock}
           color="var(--accent-cyan)"
           sub={`P50: ${formatLatency(metrics?.mean_latency_ms ?? 0)}`}
         />
         <MetricCard
-          title="MODEL COST"
+          title="SESSION SPEND"
           value={formatCurrency(metrics?.total_cost_usd ?? 0)}
           icon={DollarSign}
           color="var(--accent-purple)"

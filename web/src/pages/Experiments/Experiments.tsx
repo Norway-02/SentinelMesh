@@ -58,10 +58,10 @@ export const Experiments: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
         <h1 style={{ fontSize: '20px', fontWeight: 700, letterSpacing: '-0.01em', color: 'var(--text-primary)' }}>
-          Experimental Benchmark Matrix
+          Policy A/B Evaluation &amp; Benchmark Matrix (Simulated)
         </h1>
         <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-          Comparative evaluation of Stage 17 (Deterministic), Stage 18 (Predictive), and Stage 19 (Online Bandit).
+          Synthetic offline policy evaluation comparing Stage 17, Stage 18, and Stage 19 routing algorithms.
         </p>
       </div>
 

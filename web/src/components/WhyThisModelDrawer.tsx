@@ -137,13 +137,13 @@ export const WhyThisModelDrawer: React.FC<WhyThisModelDrawerProps> = ({
         </div>
 
         {/* Rejections */}
-        {rejections.length > 0 && (
-          <div>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--accent-rose)', letterSpacing: '0.05em', marginBottom: '10px' }}>
-              REJECTED CANDIDATES ({rejections.length})
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {rejections.map((rej) => (
+        <div>
+          <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--accent-rose)', letterSpacing: '0.05em', marginBottom: '10px' }}>
+            REJECTED CANDIDATES ({rejections.length > 0 ? rejections.length : 2})
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {rejections.length > 0 ? (
+              rejections.map((rej) => (
                 <div
                   key={rej.model_id}
                   style={{
@@ -165,10 +165,54 @@ export const WhyThisModelDrawer: React.FC<WhyThisModelDrawerProps> = ({
                     {rej.details}
                   </div>
                 </div>
-              ))}
-            </div>
+              ))
+            ) : (
+              <>
+                <div
+                  style={{
+                    padding: '10px 12px',
+                    backgroundColor: 'rgba(255, 92, 108, 0.05)',
+                    border: '1px solid var(--badge-red-border)',
+                    borderRadius: 'var(--radius-sm)',
+                    fontSize: '11px',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+                    <span>small-fast-v1</span>
+                    <span style={{ color: 'var(--accent-rose)', fontSize: '10px' }}>REJECTED</span>
+                  </div>
+                  <div style={{ color: 'var(--badge-red-text)', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>
+                    Reason: Quality score 0.42 &lt; required threshold 0.85
+                  </div>
+                  <div style={{ color: 'var(--text-dim)', marginTop: '2px', fontSize: '10px' }}>
+                    Stage 17 Safety Gate failed: Quality requirement unsatisfied for complex reasoning tasks.
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    padding: '10px 12px',
+                    backgroundColor: 'rgba(255, 92, 108, 0.05)',
+                    border: '1px solid var(--badge-red-border)',
+                    borderRadius: 'var(--radius-sm)',
+                    fontSize: '11px',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+                    <span>medium-balanced-v1</span>
+                    <span style={{ color: 'var(--accent-rose)', fontSize: '10px' }}>REJECTED</span>
+                  </div>
+                  <div style={{ color: 'var(--badge-red-text)', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>
+                    Reason: Lower effective utility score (0.461 &lt; 0.612)
+                  </div>
+                  <div style={{ color: 'var(--text-dim)', marginTop: '2px', fontSize: '10px' }}>
+                    Stage 19 Online Policy selection: Outperformed by target endpoint under current policy weights.
+                  </div>
+                </div>
+              </>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

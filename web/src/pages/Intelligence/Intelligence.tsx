@@ -52,10 +52,10 @@ export const Intelligence: React.FC = () => {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <h1 style={{ fontSize: '20px', fontWeight: 700, letterSpacing: '-0.01em', color: 'var(--text-primary)' }}>
-            Adaptive Intelligence
+            Adaptive Intelligence (Stage 18-19 Experimental)
           </h1>
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-            Online Bayesian learning store, dual-window drift monitoring, and automated policy guardrails.
+            Online Bayesian learning store, dual-window drift monitoring, and automated policy guardrails (Simulated Layer).
           </p>
         </div>
         <StatusBadge

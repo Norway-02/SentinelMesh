@@ -14,15 +14,16 @@ interface HeaderProps {
 }
 
 const pageSubtitles: Record<string, { title: string; subtitle: string }> = {
-  '/dashboard': { title: 'Dashboard', subtitle: 'Real-time AI control tower & operational metrics' },
-  '/tasks': { title: 'Task Workbench', subtitle: 'Route, execute and observe AI workloads' },
-  '/router': { title: 'Model Router', subtitle: 'Stage 17 Safety → Stage 18 Prediction → Stage 19 Policy' },
-  '/providers': { title: 'Model Providers', subtitle: 'Upstream LLM provider status & circuit telemetry' },
-  '/intelligence': { title: 'Adaptive Intelligence', subtitle: 'Bayesian online learning, drift monitoring & guardrails' },
-  '/agents': { title: 'Agent Registry', subtitle: 'Registered AI workload agents & resource allocation' },
-  '/distributed': { title: 'Distributed Control Plane', subtitle: 'Multi-cluster consensus, fencing tokens & checkpoints' },
+  '/dashboard': { title: 'Dashboard', subtitle: 'Autonomous Workload Control Plane — Operational Metrics' },
+  '/tasks': { title: 'Task Workbench', subtitle: 'Route, execute and observe workload execution' },
+  '/runs': { title: 'Execution Runs', subtitle: 'Lifecycle timeline, generation tokens, checkpoints & verification' },
+  '/router': { title: 'Model Router', subtitle: 'Stage 17 Model Router (Deterministic) · Stage 18-19 (Experimental/Simulated)' },
+  '/providers': { title: 'Model Providers', subtitle: 'Provider health, simulation status & circuit telemetry' },
+  '/intelligence': { title: 'Adaptive Intelligence', subtitle: 'Stage 18-19 (Experimental) · Bayesian online learning & drift monitoring' },
+  '/agents': { title: 'Agent Registry', subtitle: 'Registered workload agents & resource allocation' },
+  '/distributed': { title: 'Distributed Control Plane', subtitle: 'Multi-cluster execution authority, generation fencing tokens & state checkpoints' },
   '/experiments': { title: 'Experiments', subtitle: 'Offline A/B testing & shadow routing comparison' },
-  '/events': { title: 'Event Explorer', subtitle: 'Real-time domain event log & payload inspector' },
+  '/events': { title: 'Event Explorer', subtitle: 'Real-time domain event log, delivery attempts & payload inspector' },
   '/settings': { title: 'System Settings', subtitle: 'Runtime configuration, addresses & engine versions' },
 };
 

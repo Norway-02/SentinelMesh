@@ -12,6 +12,7 @@ import { Distributed } from './pages/Distributed/Distributed';
 import { Experiments } from './pages/Experiments/Experiments';
 import { Events } from './pages/Events/Events';
 import { Settings } from './pages/Settings/Settings';
+import { RunsList, RunDetails } from './pages/Runs/RunDetails';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,8 @@ export const App: React.FC = () => {
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/runs" element={<RunsList />} />
+            <Route path="/runs/:id" element={<RunDetails />} />
             <Route path="/router" element={<Router />} />
             <Route path="/providers" element={<Providers />} />
             <Route path="/intelligence" element={<Intelligence />} />
