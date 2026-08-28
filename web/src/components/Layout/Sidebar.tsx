@@ -170,7 +170,8 @@ export const Sidebar: React.FC = () => {
         }}
       >
         <div>API: 127.0.0.1:8787</div>
-        <div>ENGINE: STAGE 17 - MODEL ROUTER</div>
+        <div style={{ fontWeight: 700, color: 'var(--text-muted)' }}>ENGINE: SENTINELMESH</div>
+        <div style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>MODE: DEVELOPMENT · SYNTHETIC</div>
       </div>
     </aside>
   );

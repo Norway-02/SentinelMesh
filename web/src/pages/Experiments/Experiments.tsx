@@ -50,7 +50,7 @@ export const Experiments: React.FC = () => {
       stage17: '0 (100% Enforced)',
       stage18: '0 (100% Enforced)',
       stage19: '0 (100% Enforced)',
-      winner: 'ALL STAGES PASS (Invariant Preserved)',
+      winner: 'SIMULATION INVARIANTS PASS',
     },
   ];
 
@@ -79,7 +79,7 @@ export const Experiments: React.FC = () => {
                 <th style={{ padding: '12px 16px' }}>STAGE 17 (STATIC)</th>
                 <th style={{ padding: '12px 16px' }}>STAGE 18 (PREDICTIVE)</th>
                 <th style={{ padding: '12px 16px' }}>STAGE 19 (ONLINE BANDIT)</th>
-                <th style={{ padding: '12px 16px' }}>OPTIMAL ROUTER</th>
+                <th style={{ padding: '12px 16px' }}>BEST IN SIMULATION</th>
               </tr>
             </thead>
             <tbody>

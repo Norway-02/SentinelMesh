@@ -67,12 +67,12 @@ export const Intelligence: React.FC = () => {
       {/* Top Overview Cards Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
         <div style={{ backgroundColor: 'var(--bg-panel)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', padding: '16px 18px' }}>
-          <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.05em' }}>ACTIVE POLICY</div>
+          <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.05em' }}>ACTIVE POLICY (SIMULATED)</div>
           <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--accent-purple)', fontFamily: 'var(--font-mono)', marginTop: '4px' }}>
             {policyState?.version || 'policy-v1.0'}
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>
-            Parent: {policyState?.parent_version || 'baseline-v1.0'}
+          <div style={{ fontSize: '10px', color: 'var(--accent-amber)', fontWeight: 600, marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
+            SIMULATION ONLY · No live policy mutation
           </div>
         </div>
 
@@ -101,8 +101,8 @@ export const Intelligence: React.FC = () => {
           <div style={{ fontSize: '15px', fontWeight: 700, color: policyState?.is_rolled_back ? 'var(--accent-amber)' : 'var(--accent-emerald)', fontFamily: 'var(--font-mono)', marginTop: '4px' }}>
             {policyState?.is_rolled_back ? 'Rolled back from policy-v2.0' : 'Never rolled back'}
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>
-            {policyState?.is_rolled_back ? 'Reason: Quality guardrail' : 'Guardrail Floor: 85.0% Quality'}
+          <div style={{ fontSize: '10px', color: 'var(--accent-amber)', fontWeight: 600, marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
+            SIMULATION GUARDRAIL · Floor: 85.0% Quality
           </div>
         </div>
       </div>
